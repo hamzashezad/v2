@@ -32,6 +32,7 @@ func (h *handler) showCreateUserPage(w http.ResponseWriter, r *http.Request) {
 	view.Set("form", &form.UserForm{})
 	view.Set("menu", "settings")
 	view.Set("user", user)
+	view.Set("countTodayUnread", h.store.CountTodayUnreadEntries(user.ID))
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 

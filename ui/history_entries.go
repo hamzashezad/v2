@@ -49,6 +49,7 @@ func (h *handler) showHistoryPage(w http.ResponseWriter, r *http.Request) {
 	view.Set("pagination", getPagination(route.Path(h.router, "history"), count, offset, user.EntriesPerPage))
 	view.Set("menu", "history")
 	view.Set("user", user)
+	view.Set("countTodayUnread", h.store.CountTodayUnreadEntries(user.ID))
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 	view.Set("hasSaveEntry", h.store.HasSaveEntry(user.ID))

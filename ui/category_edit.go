@@ -48,6 +48,7 @@ func (h *handler) showEditCategoryPage(w http.ResponseWriter, r *http.Request) {
 	view.Set("category", category)
 	view.Set("menu", "categories")
 	view.Set("user", user)
+	view.Set("countTodayUnread", h.store.CountTodayUnreadEntries(user.ID))
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 

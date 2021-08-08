@@ -45,6 +45,26 @@ func (s *Storage) CountAllEntries() map[string]int64 {
 	return results
 }
 
+func (s *Storage) CountTodayUnreadEntries(userID int64) int {
+	now := time.Now()
+	y, m, d := now.Date()
+
+	today := time.Date(y, m, d, 0, 0, 0, 0, now.Location());
+
+	builder := s.NewEntryQueryBuilder(userID)
+	builder.AfterDate(today)
+	builder.WithStatus(model.EntryStatusUnread)
+	builder.WithGloballyVisible()
+
+	n, err := builder.CountEntries()
+	if err != nil {
+		logger.Error(`store: unable to count today's unread entries for user #%d: %v`, userID, err)
+		return 0
+	}
+
+	return n
+}
+
 // CountUnreadEntries returns the number of unread entries.
 func (s *Storage) CountUnreadEntries(userID int64) int {
 	builder := s.NewEntryQueryBuilder(userID)

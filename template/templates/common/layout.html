@@ -56,6 +56,13 @@
                 <a href="{{ route "unread" }}">Mini<span>flux</span></a>
             </div>
             <ul>
+                <li {{ if eq .menu "today" }}class="active"{{ end }} title="{{ t "tooltip.keyboard_shortcuts" "g u" }}">
+                    <a href="{{ route "today" }}" data-page="today">{{ t "menu.today" }}
+                      {{ if gt .countTodayUnread 0 }}
+                          <span class="unread-counter-wrapper">(<span class="unread-counter">{{ .countTodayUnread }}</span>)</span>
+                      {{ end }}
+                    </a>
+                </li>
                 <li {{ if eq .menu "unread" }}class="active"{{ end }} title="{{ t "tooltip.keyboard_shortcuts" "g u" }}">
                     <a href="{{ route "unread" }}" data-page="unread">{{ t "menu.unread" }}
                       {{ if gt .countUnread 0 }}

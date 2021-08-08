@@ -32,6 +32,7 @@ func (h *handler) saveCategory(w http.ResponseWriter, r *http.Request) {
 	view.Set("form", categoryForm)
 	view.Set("menu", "categories")
 	view.Set("user", loggedUser)
+	view.Set("countTodayUnread", h.store.CountTodayUnreadEntries(loggedUser.ID))
 	view.Set("countUnread", h.store.CountUnreadEntries(loggedUser.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(loggedUser.ID))
 
